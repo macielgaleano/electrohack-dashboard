@@ -3,6 +3,9 @@ import ProductStore from "./components/ProductStore/ProductStore";
 import ProductList from "./components/ProductList/ProductList";
 import ProductModifiy from "./components/ProductModifiy/ProductModifiy";
 import ProductDelete from "./components/ProductDelete/ProductDelete";
+import OrdenList from "./components/OrdenList";
+import OrderModify from "./components/OrderModify/OrderModify";
+import AdminStore from "./components/AdminStore";
 
 const dashboardRoutes = [
   {
@@ -43,32 +46,32 @@ const dashboardRoutes = [
   },
   {
     upgrade: true,
-    path: "/dashboard",
+    path: "/OrdenList",
     name: "Listar ordenes",
     icon: "pe-7s-menu",
-    component: Dashboard,
+    component: OrdenList,
     layout: "/admin",
   },
   {
-    path: "/dashboard",
+    path: "/OrderModify",
     name: "Editar orden",
     icon: "pe-7s-pen",
-    component: Dashboard,
+    component: OrderModify,
     layout: "/admin",
   },
   {
-    path: "/dashboard",
+    path: "/OrderDelete",
     name: "Eliminar orden",
     icon: "pe-7s-close-circle",
-    component: Dashboard,
+    component: OrderDelete,
     layout: "/admin",
   },
   {
     upgrade: true,
-    path: "/dashboard",
+    path: "/AdminStore",
     name: "Crear administrador",
     icon: "pe-7s-plus",
-    component: Dashboard,
+    component: AdminStore,
     layout: "/admin",
   },
   {
