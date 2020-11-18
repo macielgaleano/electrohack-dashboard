@@ -1,28 +1,8 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import Dashboard from "views/Dashboard.jsx";
-import UserProfile from "views/UserProfile.jsx";
-import TableList from "views/TableList.jsx";
-import Typography from "views/Typography.jsx";
-import Icons from "views/Icons.jsx";
-import Maps from "views/Maps.jsx";
-import Notifications from "views/Notifications.jsx";
-import Upgrade from "views/Upgrade.jsx";
+import ProductStore from "./components/ProductStore/ProductStore";
+import ProductList from "./components/ProductList/ProductList";
+import ProductModifiy from "./components/ProductModifiy/ProductModifiy";
+import ProductDelete from "./components/ProductDelete/ProductDelete";
 
 const dashboardRoutes = [
   {
@@ -30,58 +10,88 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
-    layout: "/admin"
-  },
-  {
-    path: "/user",
-    name: "User Profile",
-    icon: "pe-7s-user",
-    component: UserProfile,
-    layout: "/admin"
-  },
-  {
-    path: "/table",
-    name: "Table List",
-    icon: "pe-7s-note2",
-    component: TableList,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "pe-7s-news-paper",
-    component: Typography,
-    layout: "/admin"
-  },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "pe-7s-science",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: "pe-7s-map-marker",
-    component: Maps,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "pe-7s-bell",
-    component: Notifications,
-    layout: "/admin"
+    layout: "/admin",
   },
   {
     upgrade: true,
-    path: "/upgrade",
-    name: "Upgrade to PRO",
-    icon: "pe-7s-rocket",
-    component: Upgrade,
-    layout: "/admin"
-  }
+    path: "/ProductStore",
+    name: "Crear producto",
+    icon: "pe-7s-plus",
+    component: ProductStore,
+    layout: "/admin",
+  },
+  {
+    path: "/ProductList",
+    name: "Listar productos",
+    icon: "pe-7s-menu",
+    component: ProductList,
+    layout: "/admin",
+  },
+  {
+    path: "/ProductModifiy",
+    name: "Editar producto",
+    icon: "pe-7s-pen",
+    component: ProductModifiy,
+    layout: "/admin",
+  },
+  {
+    path: "/ProductDelete",
+    name: "Eliminar producto",
+    icon: "pe-7s-close-circle",
+    component: ProductDelete,
+    layout: "/admin",
+  },
+  {
+    upgrade: true,
+    path: "/dashboard",
+    name: "Listar ordenes",
+    icon: "pe-7s-menu",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard",
+    name: "Editar orden",
+    icon: "pe-7s-pen",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard",
+    name: "Eliminar orden",
+    icon: "pe-7s-close-circle",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    upgrade: true,
+    path: "/dashboard",
+    name: "Crear administrador",
+    icon: "pe-7s-plus",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard",
+    name: "Listar usuarios",
+    icon: "pe-7s-menu",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard",
+    name: "Editar usuario",
+    icon: "pe-7s-pen",
+    component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    path: "/dashboard",
+    name: "Eliminar usuario",
+    icon: "pe-7s-delete-user",
+    component: Dashboard,
+    layout: "/admin",
+  },
 ];
 
 export default dashboardRoutes;

@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import { Grid, Row, Col, Alert } from "react-bootstrap";
 
@@ -75,10 +58,10 @@ class Notifications extends Component {
                     </button>
                     <span data-notify="icon" className="pe-7s-bell" />
                     <span data-notify="message">
-                      This is a notification with close button and icon and have
-                      many lines. You can see that the icon and the close button
-                      are always vertically aligned. This is a beautiful
-                      notification. So you don't have to worry about the style.
+                      This is a notification with close button and icon and have many
+                      lines. You can see that the icon and the close button are always
+                      vertically aligned. This is a beautiful notification. So you don't
+                      have to worry about the style.
                     </span>
                   </Alert>
                 </Col>
@@ -98,8 +81,8 @@ class Notifications extends Component {
                       &#x2715;
                     </button>
                     <span>
-                      <b> Success - </b> This is a regular notification made
-                      with bsStyle="success"
+                      <b> Success - </b> This is a regular notification made with
+                      bsStyle="success"
                     </span>
                   </Alert>
                   <Alert bsStyle="warning">
@@ -107,8 +90,8 @@ class Notifications extends Component {
                       &#x2715;
                     </button>
                     <span>
-                      <b> Warning - </b> This is a regular notification made
-                      with bsStyle="warning"
+                      <b> Warning - </b> This is a regular notification made with
+                      bsStyle="warning"
                     </span>
                   </Alert>
                   <Alert bsStyle="danger">
