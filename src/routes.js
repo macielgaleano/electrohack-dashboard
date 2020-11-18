@@ -4,9 +4,7 @@ import ProductList from "./components/ProductList/ProductList";
 import ProductModifiy from "./components/ProductModifiy/ProductModifiy";
 import ProductDelete from "./components/ProductDelete/ProductDelete";
 import OrderList from "./components/OrderList/OrderList";
-import OrderModify from "./components/OrderModify/OrderModify";
 import AdminStore from "./components/AdminStore/AdminStore";
-import OrderDelete from "./components/OrderDelete/OrderDelete";
 import UserList from "./components/UserList/UserList";
 import UserModify from "./components/UserModify/UserModify";
 import UserDelete from "./components/UserDelete/UserDelete";
@@ -54,20 +52,6 @@ const dashboardRoutes = [
     name: "Listar ordenes",
     icon: "pe-7s-menu",
     component: OrderList,
-    layout: "/admin",
-  },
-  {
-    path: "/OrderModify",
-    name: "Editar orden",
-    icon: "pe-7s-pen",
-    component: OrderModify,
-    layout: "/admin",
-  },
-  {
-    path: "/OrderDelete",
-    name: "Eliminar orden",
-    icon: "pe-7s-close-circle",
-    component: OrderDelete,
     layout: "/admin",
   },
   {
