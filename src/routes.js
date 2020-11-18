@@ -3,7 +3,7 @@ import ProductStore from "./components/ProductStore/ProductStore";
 import ProductList from "./components/ProductList/ProductList";
 import ProductModifiy from "./components/ProductModifiy/ProductModifiy";
 import ProductDelete from "./components/ProductDelete/ProductDelete";
-import OrdenList from "./components/OrdenList/OrdenList";
+import OrderList from "./components/OrderList/OrderList";
 import OrderModify from "./components/OrderModify/OrderModify";
 import AdminStore from "./components/AdminStore/AdminStore";
 import OrderDelete from "./components/OrderDelete/OrderDelete";
@@ -53,7 +53,7 @@ const dashboardRoutes = [
     path: "/OrdenList",
     name: "Listar ordenes",
     icon: "pe-7s-menu",
-    component: OrdenList,
+    component: OrderList,
     layout: "/admin",
   },
   {
