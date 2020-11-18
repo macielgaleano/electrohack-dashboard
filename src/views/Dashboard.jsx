@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
-
+import axios from "axios";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import { Tasks } from "components/Tasks/Tasks.jsx";
@@ -17,6 +17,15 @@ import {
   responsiveBar,
   legendBar,
 } from "variables/Variables.jsx";
+
+// const [orders, setorders] = useState([]);
+
+// useEffect(() => {
+//   function orders() {
+//     axios.get("");
+//   }
+//   orders();
+// }, []);
 
 class Dashboard extends Component {
   createLegend(json) {
