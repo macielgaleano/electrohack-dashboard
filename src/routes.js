@@ -10,7 +10,6 @@ import OrderDelete from "./components/OrderDelete/OrderDelete";
 import UserList from "./components/UserList/UserList";
 import UserModify from "./components/UserModify/UserModify";
 import UserDelete from "./components/UserDelete/UserDelete";
-//
 
 const dashboardRoutes = [
   {
