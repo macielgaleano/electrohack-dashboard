@@ -3,9 +3,13 @@ import ProductStore from "./components/ProductStore/ProductStore";
 import ProductList from "./components/ProductList/ProductList";
 import ProductModifiy from "./components/ProductModifiy/ProductModifiy";
 import ProductDelete from "./components/ProductDelete/ProductDelete";
-import OrdenList from "./components/OrdenList";
+import OrdenList from "./components/OrdenList/OrdenList";
 import OrderModify from "./components/OrderModify/OrderModify";
-import AdminStore from "./components/AdminStore";
+import AdminStore from "./components/AdminStore/AdminStore";
+import OrderDelete from "./components/OrderDelete/OrderDelete";
+import UserList from "./components/UserList/UserList";
+import UserModify from "./components/UserModify/UserModify";
+import UserDelete from "./components/UserDelete/UserDelete";
 
 const dashboardRoutes = [
   {
@@ -75,24 +79,24 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/dashboard",
+    path: "/UserList",
     name: "Listar usuarios",
     icon: "pe-7s-menu",
-    component: Dashboard,
+    component: UserList,
     layout: "/admin",
   },
   {
-    path: "/dashboard",
+    path: "/UserModify",
     name: "Editar usuario",
     icon: "pe-7s-pen",
-    component: Dashboard,
+    component: UserModify,
     layout: "/admin",
   },
   {
-    path: "/dashboard",
+    path: "/UserDelete",
     name: "Eliminar usuario",
     icon: "pe-7s-delete-user",
-    component: Dashboard,
+    component: UserDelete,
     layout: "/admin",
   },
 ];
