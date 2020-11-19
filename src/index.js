@@ -10,8 +10,8 @@ import "./assets/css/animate.min.css";
 import "./assets/sass/light-bootstrap-dashboard-react.scss?v=1.3.0";
 import "./assets/css/demo.css";
 import "./assets/css/pe-icon-7-stroke.css";
-import PublicRoute from "components/Routers/PublicRoute";
-import PrivateRoute from "components/Routers/PrivateRoute";
+// import PublicRoute from "components/Routers/PublicRoute";
+// import PrivateRoute from "components/Routers/PrivateRoute";
 
 import AdminLayout from "layouts/Admin.jsx";
 
