@@ -8,9 +8,6 @@ import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
   dataPie,
   legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
   legendSales,
   dataBar,
   optionsBar,
@@ -66,6 +63,27 @@ class Dashboard extends Component {
           this.setState({ sum_count: this.state.sum_count + el.price * el.quantity });
         });
       });
+    axios.get("https://electrohack-server.vercel.app/ordenes/mes").then((res) => {
+      res.data.forEach((el) => {
+        if (!this.state.data_sales.series) {
+          let [[arr]] = this.state.data_sales.series;
+
+          this.setState({
+            data_sales: {
+              labels: [...this.state.data_sales.labels, el._id],
+              series: [[...arr, el.count]],
+            },
+          });
+        } else {
+          this.setState({
+            data_sales: {
+              labels: [...this.state.data_sales.labels, el._id],
+              series: [[el.count]],
+            },
+          });
+        }
+      });
+    });
   }
 
   createLegend(json) {
@@ -78,6 +96,7 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
   render() {
     return (
       <div className="content">
