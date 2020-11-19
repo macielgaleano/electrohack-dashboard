@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 const ProductModify = () => {
   const token = useSelector((state) => state.admin.token);
-
   const [products, setProducts] = useState(null);
 
   function deleteItem(slug, token) {
@@ -19,7 +18,10 @@ const ProductModify = () => {
         data: { slug: slug },
       })
       .then((res) => {
-        console.log("se ejecuto");
+        const newsProducts = products.filter(
+          (product) => product.slug !== slug
+        );
+        setProducts(newsProducts);
       });
   }
 
@@ -37,16 +39,17 @@ const ProductModify = () => {
           return (
             <Row key={product.slug}>
               <Col md={5}>{product.name}</Col>
-              <Col md={3}>{product.price}</Col>
+              <Col md={3}>$ {product.price}</Col>
               <Col md={2}>
-                <button onClick={() => updateItem(product.slug, token)}>
-                  Editar
-                </button>
+                <Button bsStyle="success">Editar</Button>
               </Col>
               <Col md={2}>
-                <button onClick={() => deleteItem(product.slug, token)}>
+                <Button
+                  bsStyle="danger"
+                  onClick={() => deleteItem(product.slug, token)}
+                >
                   Eliminar
-                </button>
+                </Button>
               </Col>
             </Row>
           );
