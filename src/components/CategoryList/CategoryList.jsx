@@ -18,7 +18,7 @@ const CategoryList = () => {
       <h1>Lista de categorias</h1>
       <br></br>
       <Row>
-        <Col md={11}>
+        <Col md={6}>
           <Table bordered={true}>
             <thead>
               <tr style={{ color: "red" }}>
