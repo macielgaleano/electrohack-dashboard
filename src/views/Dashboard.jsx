@@ -8,9 +8,6 @@ import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
   dataPie,
   legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
   legendSales,
   dataBar,
   optionsBar,
@@ -66,6 +63,27 @@ class Dashboard extends Component {
           this.setState({ sum_count: this.state.sum_count + el.price * el.quantity });
         });
       });
+    axios.get("https://electrohack-server.vercel.app/ordenes/mes").then((res) => {
+      res.data.forEach((el) => {
+        if (!this.state.data_sales.series) {
+          let [[arr]] = this.state.data_sales.series;
+
+          this.setState({
+            data_sales: {
+              labels: [...this.state.data_sales.labels, el._id],
+              series: [[...arr, el.count]],
+            },
+          });
+        } else {
+          this.setState({
+            data_sales: {
+              labels: [...this.state.data_sales.labels, el._id],
+              series: [[el.count]],
+            },
+          });
+        }
+      });
+    });
   }
 
   createLegend(json) {
@@ -78,6 +96,7 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
   render() {
     return (
       <div className="content">
@@ -133,7 +152,9 @@ class Dashboard extends Component {
                     <ChartistGraph data={this.state.data_sales} type="Line" />
                   </div>
                 }
-                legend={<div className="legend">{this.createLegend(legendSales)}</div>}
+                legend={
+                  <div className="legend">{this.createLegend(legendSales)}</div>
+                }
               />
             </Col>
             <Col md={4}>
@@ -143,11 +164,16 @@ class Dashboard extends Component {
                 category="Last Campaign Performance"
                 stats="Campaign sent 2 days ago"
                 content={
-                  <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+                  <div
+                    id="chartPreferences"
+                    className="ct-chart ct-perfect-fourth"
+                  >
                     <ChartistGraph data={dataPie} type="Pie" />
                   </div>
                 }
-                legend={<div className="legend">{this.createLegend(legendPie)}</div>}
+                legend={
+                  <div className="legend">{this.createLegend(legendPie)}</div>
+                }
               />
             </Col>
           </Row>
@@ -170,7 +196,9 @@ class Dashboard extends Component {
                     />
                   </div>
                 }
-                legend={<div className="legend">{this.createLegend(legendBar)}</div>}
+                legend={
+                  <div className="legend">{this.createLegend(legendBar)}</div>
+                }
               />
             </Col>
 
