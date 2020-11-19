@@ -16,7 +16,7 @@ const ProductList = () => {
       <h1>Lista de productos</h1>
       <br></br>
       <Row>
-        <Col md={11}>
+        <Col md={11} sm={12}>
           <Table bordered={true}>
             <thead>
               <tr style={{ color: "red" }}>
