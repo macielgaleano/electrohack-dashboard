@@ -8,6 +8,8 @@ import AdminStore from "./components/AdminStore/AdminStore";
 import UserList from "./components/UserList/UserList";
 import UserModify from "./components/UserModify/UserModify";
 import UserDelete from "./components/UserDelete/UserDelete";
+import CategoryStore from "./components/CategoryStore/CategoryStore";
+import CategoryList from "./components/CategoryList/CategoryList";
 
 const dashboardRoutes = [
   {
@@ -15,6 +17,21 @@ const dashboardRoutes = [
     name: "Dashboard",
     icon: "pe-7s-graph",
     component: Dashboard,
+    layout: "/admin",
+  },
+  {
+    upgrade: true,
+    path: "/CategoryStore",
+    name: "Crear categoria",
+    icon: "pe-7s-plus",
+    component: CategoryStore,
+    layout: "/admin",
+  },
+  {
+    path: "/CategoryList",
+    name: "Listar categoria",
+    icon: "pe-7s-menu",
+    component: CategoryList,
     layout: "/admin",
   },
   {
