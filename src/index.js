@@ -20,18 +20,8 @@ ReactDOM.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <Switch>
-          <PublicRoute
-            restricted={false}
-            exact
-            path="/login"
-            component={Login}
-          />
-          <PrivateRoute
-            restricted={false}
-            exact
-            path="/admin/dashboard"
-            component={AdminLayout}
-          />
+          <Route path="/login" component={Login} />
+          <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
 
           <Redirect from="/" to="/admin/dashboard" />
         </Switch>
