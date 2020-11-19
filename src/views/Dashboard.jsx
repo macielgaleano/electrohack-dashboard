@@ -47,7 +47,7 @@ class Dashboard extends Component {
               <StatsCard
                 bigIcon={<i className="pe-7s-server text-warning" />}
                 statsText="Capacity"
-                statsValue="105GB"
+                statsValue={null}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
