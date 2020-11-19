@@ -6,11 +6,10 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
-import { actionRegister } from "../../Redux/actions/actionRegister";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -36,10 +35,9 @@ const useStyles = makeStyles((theme) => ({
 const AdminStore = () => {
   const classes = useStyles();
   const history = useHistory();
-  const dispatch = useDispatch();
   const store = useSelector((state) => state);
 
-  const [firstName, setName] = React.useState("");
+  const [firstname, setName] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -50,7 +48,7 @@ const AdminStore = () => {
       .post(
         "https://electrohack-server.vercel.app/api/admin",
         {
-          firstname: firstName,
+          firstname: firstname,
           lastname: lastname,
           email: email,
           password: password,
@@ -63,7 +61,8 @@ const AdminStore = () => {
         }
       )
       .then((admin) => {
-        history.push("/");
+        history.push("/admin/AdminStore");
+        console.log("admin creado papá", admin);
       });
   };
 
@@ -87,6 +86,7 @@ const AdminStore = () => {
                 fullWidth
                 label="Nombre"
                 autoFocus
+                name="firstname"
                 onChange={(e) => setName(e.target.value)}
               />
             </Grid>
@@ -97,6 +97,7 @@ const AdminStore = () => {
                 fullWidth
                 label="Apellido"
                 autoComplete="lname"
+                name="lastname"
                 onChange={(e) => setLastname(e.target.value)}
               />
             </Grid>
@@ -107,6 +108,7 @@ const AdminStore = () => {
                 fullWidth
                 label="Correo electronico"
                 autoComplete="email"
+                name="email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Grid>
@@ -117,6 +119,7 @@ const AdminStore = () => {
                 fullWidth
                 label="Contraseña"
                 type="password"
+                name="password"
                 autoComplete="current-password"
                 onChange={(e) => setPassword(e.target.value)}
               />
