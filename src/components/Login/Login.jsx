@@ -14,6 +14,7 @@ import { actionRegister } from "../../Redux/actions/actionRegister";
 import axios from "axios";
 import { Alert, AlertTitle } from "@material-ui/lab";
 import { useDispatch } from "react-redux";
+import "./login.css";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
   },
+  MuiFormLabelRoot: { fontSize: "15px" },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -29,12 +31,15 @@ const useStyles = makeStyles((theme) => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+    fontSize: "15px",
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    fontSize: "15px",
   },
   input: {
     marginBottom: "20px",
+    fontSize: "15px",
   },
   center: {
     margin: "auto auto",
@@ -111,20 +116,9 @@ const Login = () => {
           >
             Login
           </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Link to={"/registro"} variant="body2">
-                ¿No tienes una cuenta? Registrate
-              </Link>
-            </Grid>
-          </Grid>
-          <Alert
-            severity="error"
-            style={{ display: alertStyle, marginTop: "20px" }}
-          >
+          <Alert severity="error" style={{ display: alertStyle, marginTop: "20px" }}>
             <AlertTitle>Error</AlertTitle>
-            Los datos ingresados no son correctos —{" "}
-            <strong>Intenta nuevamente!</strong>
+            Los datos ingresados no son correctos — <strong>Intenta nuevamente!</strong>
           </Alert>
         </form>
       </div>
