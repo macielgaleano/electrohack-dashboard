@@ -18,14 +18,11 @@ const ProductModify = () => {
         data: { slug: slug },
       })
       .then((res) => {
-        const newsProducts = products.filter(
-          (product) => product.slug !== slug
-        );
+        const newsProducts = products.filter((product) => product.slug !== slug);
         setProducts(newsProducts);
       });
   }
 
-  function updateItem(slug, token) {}
   useEffect(() => {
     axios.get("https://electrohack-server.vercel.app/productos").then((res) => {
       setProducts(res.data);
@@ -44,10 +41,7 @@ const ProductModify = () => {
                 <Button bsStyle="success">Editar</Button>
               </Col>
               <Col md={2}>
-                <Button
-                  bsStyle="danger"
-                  onClick={() => deleteItem(product.slug, token)}
-                >
+                <Button bsStyle="danger" onClick={() => deleteItem(product.slug, token)}>
                   Eliminar
                 </Button>
               </Col>
