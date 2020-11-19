@@ -18,16 +18,26 @@ import {
   legendBar,
 } from "variables/Variables.jsx";
 
-// const [orders, setorders] = useState([]);
-
-// useEffect(() => {
-//   function orders() {
-//     axios.get("");
-//   }
-//   orders();
-// }, []);
-
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      quantityProductsState: 0,
+    };
+  }
+  componentDidMount() {
+    let productsQuantity = axios
+      .get("https://electrohack-server.vercel.app/productos")
+      .then((res) => {
+        this.setState({ quantityProductsState: res.data.length });
+      });
+    let revenue = axios
+      .get("https://electrohack-server.vercel.app/pedidos")
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
   createLegend(json) {
     var legend = [];
     for (var i = 0; i < json["names"].length; i++) {
@@ -46,8 +56,8 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-server text-warning" />}
-                statsText="Capacity"
-                statsValue={null}
+                statsText="Productos"
+                statsValue={this.state.quantityProductsState}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -57,8 +67,8 @@ class Dashboard extends Component {
                 bigIcon={<i className="pe-7s-wallet text-success" />}
                 statsText="Revenue"
                 statsValue="$1,345"
-                statsIcon={<i className="fa fa-calendar-o" />}
-                statsIconText="Last day"
+                statsIcon={<i className="fa fa-refresh" />}
+                statsIconText="Updated now"
               />
             </Col>
             <Col lg={3} sm={6}>
