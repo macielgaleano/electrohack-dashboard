@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { store, persistor } from "./Redux/ConfigurationStore";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import Login from "./components/Login/Login";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/animate.min.css";
@@ -18,6 +19,7 @@ ReactDOM.render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <Switch>
+          <Route path="/login" component={Login} />
           <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
           <Redirect from="/" to="/admin/dashboard" />
         </Switch>
