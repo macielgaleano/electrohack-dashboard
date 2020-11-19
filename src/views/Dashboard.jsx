@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 import axios from "axios";
@@ -22,19 +22,49 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      quantityOrders: 0,
       quantityProductsState: 0,
+      sum_count: 0,
+      userQuantity: 0,
+      data_sales: {
+        labels: [],
+        series: [],
+      },
     };
   }
   componentDidMount() {
-    let productsQuantity = axios
-      .get("https://electrohack-server.vercel.app/productos")
+    let products_aux = [];
+    axios.get("https://electrohack-server.vercel.app/productos").then((res) => {
+      this.setState({ quantityProductsState: res.data.length });
+    });
+    axios
+      .get("https://electrohack-server.vercel.app/api/usuarios", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjU4M2I5NGRmZjA4OGYzZTdmNzI4ZSIsImZpcnN0bmFtZSI6InJvb3QiLCJsYXN0bmFtZSI6InJvb3QiLCJpYXQiOjE2MDU3OTc5NjF9.bysGz5ZH2rTQvVNJf18ssogrJy54TNZwmppQ-QDwJRA",
+        },
+      })
       .then((res) => {
-        this.setState({ quantityProductsState: res.data.length });
+        this.setState({ userQuantity: res.data.length });
       });
-    let revenue = axios
-      .get("https://electrohack-server.vercel.app/pedidos")
+    axios
+      .get("https://electrohack-server.vercel.app/api/pedidos/all", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYjU4M2I5NGRmZjA4OGYzZTdmNzI4ZSIsImZpcnN0bmFtZSI6InJvb3QiLCJsYXN0bmFtZSI6InJvb3QiLCJpYXQiOjE2MDU3OTc5NjF9.bysGz5ZH2rTQvVNJf18ssogrJy54TNZwmppQ-QDwJRA",
+        },
+      })
       .then((res) => {
-        console.log(res);
+        this.setState({ quantityOrders: res.data.length });
+        res.data.forEach((el) => {
+          products_aux = [...products_aux, ...el.products];
+        });
+
+        products_aux.forEach((el) => {
+          this.setState({ sum_count: this.state.sum_count + el.price * el.quantity });
+        });
       });
   }
 
@@ -65,26 +95,26 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-wallet text-success" />}
-                statsText="Revenue"
-                statsValue="$1,345"
+                statsText="Ventas"
+                statsValue={this.state.sum_count}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-graph1 text-danger" />}
-                statsText="Errors"
-                statsValue="23"
+                bigIcon={<i className="pe-7s-box1 text-danger" />}
+                statsText="Ordenes"
+                statsValue={this.state.quantityOrders}
                 statsIcon={<i className="fa fa-clock-o" />}
                 statsIconText="In the last hour"
               />
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fa fa-twitter text-info" />}
-                statsText="Followers"
-                statsValue="+45"
+                bigIcon={<i className="pe-7s-user text-info" />}
+                statsText="Cantidad de usuarios"
+                statsValue={this.state.userQuantity}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
               />
@@ -100,12 +130,7 @@ class Dashboard extends Component {
                 stats="Updated 3 minutes ago"
                 content={
                   <div className="ct-chart">
-                    <ChartistGraph
-                      data={dataSales}
-                      type="Line"
-                      options={optionsSales}
-                      responsiveOptions={responsiveSales}
-                    />
+                    <ChartistGraph data={this.state.data_sales} type="Line" />
                   </div>
                 }
                 legend={
