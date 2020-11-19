@@ -3,10 +3,10 @@ import { combineReducers, createStore, applyMiddleware } from "redux";
 import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import user from "./Reducers/userReducer";
+import admin from "./Reducers/adminReducer";
 
 const rootReducer = combineReducers({
-  user,
+  admin,
 });
 
 const persistConfig = {
