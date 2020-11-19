@@ -52,11 +52,12 @@ const Login = () => {
   let login = async (e) => {
     e.preventDefault();
     let userData = await axios
-      .post("https://electrohack-server.vercel.app/token/login", {
+      .post("https://electrohack-server.vercel.app/token/login/admin", {
         email: email,
         password: password,
       })
       .then((user) => {
+        console.log(user);
         dispatch(actionRegister(user.data));
         if (user.data.token === undefined) {
           setAlertStyle("block");
