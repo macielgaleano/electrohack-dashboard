@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Grid, Row, Col, Table } from "react-bootstrap";
-import axios from "axios";
 import "./UserList.css";
 
 const UserList = () => {

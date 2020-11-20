@@ -6,7 +6,6 @@ import axios from "axios";
 const UserDelete = () => {
   const store = useSelector((state) => state);
   const [admins, setAdmins] = useState([]);
-  const token = store.admin.token;
 
   function deleteItem(email) {
     axios
