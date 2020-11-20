@@ -58,7 +58,7 @@ const AdminStore = () => {
         },
       })
       .then((admin) => {
-        history.push("/admin/AdminStore");
+        history.push("/");
         console.log("admin creado papá", admin);
       });
   };
