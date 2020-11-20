@@ -19,9 +19,7 @@ const ProductDelete = () => {
         data: { slug: slug },
       })
       .then((res) => {
-        const newsProducts = products.filter(
-          (product) => product.slug !== slug
-        );
+        const newsProducts = products.filter((product) => product.slug !== slug);
         setProducts(newsProducts);
       });
   }
@@ -34,8 +32,8 @@ const ProductDelete = () => {
 
   return (
     <>
-      <h2 className="text-center">Productos</h2>
       <Grid>
+        <h1>Eliminar productos</h1>
         {products &&
           products.map((product) => {
             return (

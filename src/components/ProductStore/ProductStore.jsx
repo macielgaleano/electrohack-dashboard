@@ -84,6 +84,7 @@ const ProductStore = () => {
   return (
     <div>
       <Grid>
+        <h1>Crear producto</h1>
         <Row>
           <Col sm={12} md={8}>
             <form>

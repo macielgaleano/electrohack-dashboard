@@ -41,6 +41,7 @@ const CategoryStore = () => {
   return (
     <div>
       <Grid>
+        <h1>Crear categoria</h1>
         <Row>
           <Col sm={12} md={8}>
             <form>
