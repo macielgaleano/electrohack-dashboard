@@ -9,7 +9,8 @@ function adminReducer(state = {}, action) {
 
     case "REGISTER":
       return { ...action.payload.data };
-
+    case "LOGOUT":
+      return {};
     default:
       return {};
   }

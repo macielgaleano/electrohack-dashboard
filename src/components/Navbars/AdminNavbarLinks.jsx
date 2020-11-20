@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { NavItem, Nav } from "react-bootstrap";
 
+import Account from "./Account";
+import LogOut from "./Logout";
+
 class AdminNavbarLinks extends Component {
   render() {
     // const notification = (
@@ -25,7 +28,7 @@ class AdminNavbarLinks extends Component {
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
-            Account
+            <Account></Account>
           </NavItem>
           {/* <NavDropdown eventKey={2} title="Dropdown" id="basic-nav-dropdown-right">
             <MenuItem eventKey={2.1}>Action</MenuItem>
@@ -37,7 +40,7 @@ class AdminNavbarLinks extends Component {
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
           </NavDropdown> */}
           <NavItem eventKey={3} href="#">
-            Log out
+            <LogOut></LogOut>
           </NavItem>
         </Nav>
       </div>
