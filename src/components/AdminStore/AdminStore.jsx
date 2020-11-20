@@ -42,24 +42,28 @@ const AdminStore = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  let submitsignup = async (e) => {
+  let submitsignup = (e) => {
     e.preventDefault();
 
-    let adminData = await axios
-      .post("https://electrohack-server.vercel.app/api/admin", {
-        data: {
+    axios
+      .post(
+        "https://electrohack-server.vercel.app/api/admin",
+        {
           firstname: firstname,
           lastname: lastname,
           email: email,
           password: password,
         },
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${store.admin.token}`,
-        },
-      })
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${store.admin.token}`,
+          },
+        }
+      )
       .then((admin) => {
         history.push("/");
+        console.log("admin creado papá", admin);
       });
   };
   console.log("store admin token", store.admin.token);
