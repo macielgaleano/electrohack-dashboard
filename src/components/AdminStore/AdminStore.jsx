@@ -60,7 +60,6 @@ const AdminStore = () => {
       })
       .then((admin) => {
         history.push("/");
-        console.log("admin creado papá", admin);
       });
   };
   console.log("store admin token", store.admin.token);
