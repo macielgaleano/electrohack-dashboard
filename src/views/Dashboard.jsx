@@ -102,7 +102,7 @@ class Dashboard extends Component {
           this.setState({
             data_sales: {
               labels: [...this.state.data_sales.labels, el._id],
-              series: [[...this.state.data_sales.series, el.id]],
+              series: [[...this.state.data_sales.series, el.count]],
             },
           });
         } else {
