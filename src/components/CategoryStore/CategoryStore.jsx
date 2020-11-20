@@ -21,7 +21,7 @@ const CategoryStore = () => {
     e.preventDefault();
     await axios
       .post(
-        "http://localhost:8000/api/admin/categorias",
+        "https://electrohack-server.vercel.app/api/admin/categorias",
         {
           name: nameCategory,
         },
@@ -52,7 +52,9 @@ const CategoryStore = () => {
                   paddingBottom: "400px",
                 }}
               >
-                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                <ControlLabel
+                  style={{ marginTop: "30px", marginBottom: "20px" }}
+                >
                   Ingrese el nombre de la categoria
                 </ControlLabel>
                 <FormControl

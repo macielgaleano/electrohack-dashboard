@@ -11,7 +11,7 @@ const ProductDelete = () => {
 
   function deleteItem(slug, token) {
     axios
-      .delete("http://localhost:8000/api/admin/productos", {
+      .delete("https://electrohack-server.vercel.app/api/admin/productos", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -19,7 +19,9 @@ const ProductDelete = () => {
         data: { slug: slug },
       })
       .then((res) => {
-        const newsProducts = products.filter((product) => product.slug !== slug);
+        const newsProducts = products.filter(
+          (product) => product.slug !== slug
+        );
         setProducts(newsProducts);
       });
   }
