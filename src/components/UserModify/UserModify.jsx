@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Grid, Row, Col, Button, Table } from "react-bootstrap";
 import { useSelector } from "react-redux";
@@ -7,7 +6,6 @@ import { useSelector } from "react-redux";
 function UserModify() {
   const store = useSelector((state) => state);
   const [admins, setAdmins] = useState([]);
-  const token = store.admin.token;
 
   useEffect(() => {
     store.admin.token &&

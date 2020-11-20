@@ -478,8 +478,8 @@ var dataPie = {
   series: [40, 20, 40],
 };
 var legendPie = {
-  names: ["Open", "Bounce", "Unsubscribe"],
-  types: ["info", "danger", "warning"],
+  names: ["Sin pagar", "Sin enviar", "Pago", "Entregado"],
+  types: ["info", "danger", "warning", "success"],
 };
 
 // Data for Line Chart
@@ -525,8 +525,8 @@ var responsiveSales = [
   ],
 ];
 var legendSales = {
-  names: ["Open", "Click", "Click Second Time"],
-  types: ["info", "danger", "warning"],
+  names: [["Productos enviados por cantidad"]],
+  types: ["info"],
 };
 
 // Data for Bar Chart
@@ -546,8 +546,20 @@ var dataBar = {
     "Dec",
   ],
   series: [
-    [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-    [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695],
+    [
+      412000,
+      243000,
+      280000,
+      580000,
+      453000,
+      353000,
+      300000,
+      364000,
+      368000,
+      41000,
+      636000,
+      69500,
+    ],
   ],
 };
 var optionsBar = {
@@ -571,8 +583,8 @@ var responsiveBar = [
   ],
 ];
 var legendBar = {
-  names: ["Tesla Model S", "BMW 5 Series"],
-  types: ["info", "danger"],
+  names: ["Ventas de Electrohack"],
+  types: ["info"],
 };
 
 module.exports = {

@@ -14,6 +14,7 @@ import {
   responsiveBar,
   legendBar,
 } from "variables/Variables.jsx";
+import { quantity } from "chartist";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -26,6 +27,10 @@ class Dashboard extends Component {
       data_sales: {
         labels: [],
         series: [[]],
+      },
+      dataPie: {
+        labels: [],
+        series: [],
       },
     };
   }
@@ -54,6 +59,34 @@ class Dashboard extends Component {
         },
       })
       .then((res) => {
+        let aux_table = [];
+        res.data.map((el, index) => {
+          if (aux_table.length === 0) {
+            aux_table.push({ state: el.state, quan: 1 });
+          }
+          aux_table.forEach((tab) => {
+            if (el.state === tab.state) {
+              tab.quan = tab.quan + 1;
+            } else if (aux_table.length === index - 1) {
+              aux_table.push({ state: el.state, quan: 1 });
+            }
+          });
+        });
+        let total = 0;
+        aux_table.map((el) => {
+          total = total + el.quan;
+        });
+
+        aux_table.map((el) => {
+          console.log(el);
+          this.setState({
+            dataPie: {
+              labels: [...this.state.dataPie.labels, (el.quan * 100) / total + "%"],
+              series: [...this.state.dataPie.series, (el.quan * 100) / total],
+            },
+          });
+        });
+
         this.setState({ quantityOrders: res.data.length });
         res.data.forEach((el) => {
           products_aux = [...products_aux, ...el.products];
@@ -69,7 +102,7 @@ class Dashboard extends Component {
           this.setState({
             data_sales: {
               labels: [...this.state.data_sales.labels, el._id],
-              series: [[...this.state.data_sales.labels, el.id]],
+              series: [[...this.state.data_sales.series, el.id]],
             },
           });
         } else {
@@ -142,8 +175,8 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-history"
                 id="chartHours"
-                title="Users Behavior"
-                category="24 Hours performance"
+                title="Productos enviados por cantidad"
+                // category="24 Hours performance"
                 stats="Updated 3 minutes ago"
                 content={
                   <div className="ct-chart">
@@ -156,12 +189,11 @@ class Dashboard extends Component {
             <Col md={4}>
               <Card
                 statsIcon="fa fa-clock-o"
-                title="Email Statistics"
-                category="Last Campaign Performance"
+                title="Estado de ordenes"
                 stats="Campaign sent 2 days ago"
                 content={
                   <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                    <ChartistGraph data={dataPie} type="Pie" />
+                    <ChartistGraph data={this.state.dataPie} type="Pie" />
                   </div>
                 }
                 legend={<div className="legend">{this.createLegend(legendPie)}</div>}
@@ -173,9 +205,9 @@ class Dashboard extends Component {
             <Col md={6}>
               <Card
                 id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
-                stats="Data information certified"
+                title="Cantidad de ingresos por dia"
+                // category="All products including Taxes"
+                stats="Updated now"
                 statsIcon="fa fa-check"
                 content={
                   <div className="ct-chart">
