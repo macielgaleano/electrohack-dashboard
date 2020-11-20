@@ -132,7 +132,7 @@ class Dashboard extends Component {
             <Col lg={3} sm={6}>
               <StatsCard
                 bigIcon={<i className="pe-7s-user text-info" />}
-                statsText="Cantidad de usuarios"
+                statsText="Usuarios"
                 statsValue={this.state.userQuantity}
                 statsIcon={<i className="fa fa-refresh" />}
                 statsIconText="Updated now"
@@ -152,9 +152,7 @@ class Dashboard extends Component {
                     <ChartistGraph data={this.state.data_sales} type="Line" />
                   </div>
                 }
-                legend={
-                  <div className="legend">{this.createLegend(legendSales)}</div>
-                }
+                legend={<div className="legend">{this.createLegend(legendSales)}</div>}
               />
             </Col>
             <Col md={4}>
@@ -164,16 +162,11 @@ class Dashboard extends Component {
                 category="Last Campaign Performance"
                 stats="Campaign sent 2 days ago"
                 content={
-                  <div
-                    id="chartPreferences"
-                    className="ct-chart ct-perfect-fourth"
-                  >
+                  <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
                     <ChartistGraph data={dataPie} type="Pie" />
                   </div>
                 }
-                legend={
-                  <div className="legend">{this.createLegend(legendPie)}</div>
-                }
+                legend={<div className="legend">{this.createLegend(legendPie)}</div>}
               />
             </Col>
           </Row>
@@ -196,9 +189,7 @@ class Dashboard extends Component {
                     />
                   </div>
                 }
-                legend={
-                  <div className="legend">{this.createLegend(legendBar)}</div>
-                }
+                legend={<div className="legend">{this.createLegend(legendBar)}</div>}
               />
             </Col>
 
