@@ -44,6 +44,7 @@ const AdminStore = () => {
 
   let submitsignup = async (e) => {
     e.preventDefault();
+
     let adminData = await axios
       .post("https://electrohack-server.vercel.app/api/admin", {
         data: {
@@ -62,6 +63,7 @@ const AdminStore = () => {
         console.log("admin creado papá", admin);
       });
   };
+  console.log("store admin token", store.admin.token);
 
   return (
     <Container component="main" maxWidth="xs">
