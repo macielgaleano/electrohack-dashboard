@@ -38,6 +38,35 @@ const ProductStore = () => {
   };
   addCategory();
 
+  let addProduct = async (e) => {
+    console.log("si");
+    e.preventDefault();
+    await axios
+      .post(
+        "https://electrohack-server.vercel.app/api/admin/productos",
+        {
+          name: nameProduct,
+          description: descriptionProduct,
+          price: priceProduct,
+          brand: brandProduct,
+          pictures: [pictureProduct],
+          stock: stockProduct,
+          category: categoryProduct,
+          outstanding: outStadingProduct,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${store.admin.token}`,
+          },
+        }
+      )
+      .then((admin) => {
+        console.log(admin);
+        history.push("/admin/ProductList");
+      });
+  };
+
   let addCategoryId = (e) => {
     e.preventDefault();
     setCategoryProduct(e.target.id);
@@ -47,12 +76,15 @@ const ProductStore = () => {
 
   let addOutStading = (e) => {
     e.preventDefault();
-    SetOutStadingNameProduct(e.target.response);
+    console.log(e.target);
+    SetOutStadingNameProduct("Si");
+    setOutstadingProduct(true);
   };
 
   return (
     <div>
       <Grid>
+        <h1>Crear producto</h1>
         <Row>
           <Col sm={12} md={8}>
             <form>
@@ -137,7 +169,7 @@ const ProductStore = () => {
                   >
                     <MenuItem
                       eventKey={1}
-                      name={true}
+                      key={1}
                       response={"Si"}
                       onClick={addOutStading}
                     >
@@ -145,7 +177,7 @@ const ProductStore = () => {
                     </MenuItem>
                     <MenuItem
                       eventKey={2}
-                      name={false}
+                      key={2}
                       response={"No"}
                       onClick={addOutStading}
                     >
@@ -165,7 +197,7 @@ const ProductStore = () => {
                 <ButtonToolbar>
                   <Button
                     bsStyle="primary"
-                    onClick={addCategory}
+                    onClick={addProduct}
                     style={{
                       background: "#ccc",
                       color: "black",
@@ -173,7 +205,7 @@ const ProductStore = () => {
                       border: "1px solid black",
                     }}
                   >
-                    Agregar categoria
+                    Agregar producto
                   </Button>
                 </ButtonToolbar>
               </FormGroup>
