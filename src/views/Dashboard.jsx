@@ -5,6 +5,8 @@ import axios from "axios";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import { Tasks } from "components/Tasks/Tasks.jsx";
+import Timer from "react-timer";
+
 import {
   dataPie,
   legendPie,
@@ -177,7 +179,7 @@ class Dashboard extends Component {
                 id="chartHours"
                 title="Productos enviados por cantidad"
                 // category="24 Hours performance"
-                stats="Updated 3 minutes ago"
+                stats="Updated now"
                 content={
                   <div className="ct-chart">
                     <ChartistGraph data={this.state.data_sales} type="Line" />
@@ -190,7 +192,7 @@ class Dashboard extends Component {
               <Card
                 statsIcon="fa fa-clock-o"
                 title="Estado de ordenes"
-                stats="Campaign sent 2 days ago"
+                stats="Updated now"
                 content={
                   <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
                     <ChartistGraph data={this.state.dataPie} type="Pie" />
