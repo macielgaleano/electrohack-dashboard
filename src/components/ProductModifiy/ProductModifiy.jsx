@@ -31,8 +31,6 @@ const ProductModify = () => {
       });
   }
 
-<<<<<<< Updated upstream
-=======
   function updateProduct(e, formData, token) {
     setShow(false);
     axios.put("https://electrohack-server.vercel.app/productos", {
@@ -49,7 +47,6 @@ const ProductModify = () => {
     });
   }
 
->>>>>>> Stashed changes
   useEffect(() => {
     axios.get("https://electrohack-server.vercel.app/productos").then((res) => {
       setProducts(res.data);
@@ -61,20 +58,6 @@ const ProductModify = () => {
       {products &&
         products.map((product) => {
           return (
-<<<<<<< Updated upstream
-            <Row key={product.slug}>
-              <Col md={5}>{product.name}</Col>
-              <Col md={3}>$ {product.price}</Col>
-              <Col md={2}>
-                <Button bsStyle="success">Editar</Button>
-              </Col>
-              <Col md={2}>
-                <Button bsStyle="danger" onClick={() => deleteItem(product.slug, token)}>
-                  Eliminar
-                </Button>
-              </Col>
-            </Row>
-=======
             <div className="item-box">
               <Row key={product.slug}>
                 <Col md={4}>{product.name}</Col>
@@ -193,7 +176,6 @@ const ProductModify = () => {
                 </Col>
               </Row>
             </div>
->>>>>>> Stashed changes
           );
         })}
     </Grid>

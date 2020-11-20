@@ -25,7 +25,7 @@ class Dashboard extends Component {
       userQuantity: 0,
       data_sales: {
         labels: [],
-        series: [],
+        series: [[]],
       },
     };
   }
@@ -66,18 +66,16 @@ class Dashboard extends Component {
     axios.get("https://electrohack-server.vercel.app/ordenes/mes").then((res) => {
       res.data.forEach((el) => {
         if (!this.state.data_sales.series) {
-          let [[arr]] = this.state.data_sales.series;
-
           this.setState({
             data_sales: {
               labels: [...this.state.data_sales.labels, el._id],
-              series: [[...arr, el.count]],
+              series: [[...this.state.data_sales.labels, el.id]],
             },
           });
         } else {
           this.setState({
             data_sales: {
-              labels: [...this.state.data_sales.labels, el._id],
+              labels: [el._id],
               series: [[el.count]],
             },
           });
@@ -196,8 +194,8 @@ class Dashboard extends Component {
             <Col md={6}>
               <Card
                 title="Tasks"
-                category="Backend development"
-                stats="Updated 3 minutes ago"
+                category="Desarrollo backend and frontend"
+                stats="Updated now"
                 statsIcon="fa fa-history"
                 content={
                   <div className="table-full-width">
