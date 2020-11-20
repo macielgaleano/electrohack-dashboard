@@ -37,8 +37,6 @@ const UserDelete = () => {
         });
   }, []);
 
-  console.log("admins", admins);
-
   return (
     <div className="container">
       <Grid fluid={true}>
