@@ -67,7 +67,15 @@ const Admin = () => {
                       <td>{admin.lastname}</td>
                       <td>{admin.email}</td>
                       <td>{admin.createdAt}</td>
-                      <td></td>
+                      <td>
+                        <Button
+                          bsStyle="primary"
+                          /*                           onClick={() => deleteItem(admin.email)}
+                           */
+                        >
+                          Editar
+                        </Button>
+                      </td>
                       <td>
                         <Button
                           bsStyle="danger"
