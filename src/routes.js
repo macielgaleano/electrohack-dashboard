@@ -5,7 +5,6 @@ import ProductModifiy from "./components/ProductModifiy/ProductModifiy";
 import ProductDelete from "./components/ProductDelete/ProductDelete";
 import OrderList from "./components/OrderList/OrderList";
 import AdminStore from "./components/AdminStore/AdminStore";
-import UserList from "./components/UserList/UserList";
 import UserModify from "./components/UserModify/UserModify";
 import UserDelete from "./components/UserDelete/UserDelete";
 import CategoryStore from "./components/CategoryStore/CategoryStore";
