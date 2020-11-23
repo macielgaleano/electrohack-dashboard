@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Row, Col, Table } from "react-bootstrap";
+import { Grid, Row, Col, Table, OverlayTrigger, Button, Tooltip } from "react-bootstrap";
 import axios from "axios";
 
 const ProductList = () => {
@@ -9,8 +9,9 @@ const ProductList = () => {
       setProducts(res.data);
     });
   }, []);
-  console.log(products);
-
+  const edit = <Tooltip id="edit_tooltip">Edit Task</Tooltip>;
+  const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
+  let number;
   return (
     <Grid fluid={true}>
       <h1>Lista de productos</h1>
@@ -28,13 +29,15 @@ const ProductList = () => {
                 <th>Destacado</th>
                 <th>Stock</th>
                 <th>Precio</th>
+                <th>Accion</th>
               </tr>
             </thead>
             <tbody>
               {products !== [] &&
-                products.map((item, index) => {
+                products.map((item, i) => {
+                  number = "checkbox" + i;
                   return (
-                    <tr key={index}>
+                    <tr key={i}>
                       <td>{item._id}</td>
                       <td>{item.name}</td>
                       <td>{item.category}</td>
@@ -43,6 +46,19 @@ const ProductList = () => {
                       <td>{item.outstading}</td>
                       <td>{item.stock}</td>
                       <td>{item.price}</td>
+                      <td className="td-actions text-right">
+                        <OverlayTrigger placement="top" overlay={edit}>
+                          <Button bsStyle="info" simple type="button" bsSize="xs">
+                            <i className="fa fa-edit" />
+                          </Button>
+                        </OverlayTrigger>
+
+                        <OverlayTrigger placement="top" overlay={remove}>
+                          <Button bsStyle="danger" simple type="button" bsSize="xs">
+                            <i className="fa fa-times" />
+                          </Button>
+                        </OverlayTrigger>
+                      </td>
                     </tr>
                   );
                 })}
