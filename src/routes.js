@@ -9,7 +9,10 @@ import UserList from "./components/UserList/UserList";
 import UserModify from "./components/UserModify/UserModify";
 import UserDelete from "./components/UserDelete/UserDelete";
 import CategoryStore from "./components/CategoryStore/CategoryStore";
-import CategoryList from "./components/CategoryList/CategoryList";
+// import CategoryList from "./components/CategoryList/CategoryList";
+import Category from "./components/Category/Category";
+import Product from "./components/Product/Product";
+import Admin from "./components/Admin/Admin";
 
 const dashboardRoutes = [
   {
@@ -28,10 +31,10 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/CategoryList",
-    name: "Listar categoria",
-    icon: "pe-7s-menu",
-    component: CategoryList,
+    path: "/Category",
+    name: "Categoria",
+    icon: "pe-7s-ticket",
+    component: Category,
     layout: "/admin",
   },
   {
@@ -43,26 +46,13 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/ProductList",
-    name: "Listar productos",
-    icon: "pe-7s-menu",
-    component: ProductList,
+    path: "/Product",
+    name: "Producto",
+    icon: "pe-7s-box1",
+    component: Product,
     layout: "/admin",
   },
-  {
-    path: "/ProductModifiy",
-    name: "Editar producto",
-    icon: "pe-7s-pen",
-    component: ProductModifiy,
-    layout: "/admin",
-  },
-  {
-    path: "/ProductDelete",
-    name: "Eliminar producto",
-    icon: "pe-7s-close-circle",
-    component: ProductDelete,
-    layout: "/admin",
-  },
+
   {
     upgrade: true,
     path: "/OrdenList",
@@ -80,24 +70,10 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/UserList",
-    name: "Listar admin",
-    icon: "pe-7s-menu",
-    component: UserList,
-    layout: "/admin",
-  },
-  {
-    path: "/UserModify",
-    name: "Editar admin",
-    icon: "pe-7s-pen",
-    component: UserModify,
-    layout: "/admin",
-  },
-  {
-    path: "/UserDelete",
-    name: "Eliminar admin",
-    icon: "pe-7s-delete-user",
-    component: UserDelete,
+    path: "/admin",
+    name: "Admin",
+    icon: "pe-7s-id",
+    component: Admin,
     layout: "/admin",
   },
 ];
