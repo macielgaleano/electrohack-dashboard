@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Grid, Row, Col, Table, Button } from "react-bootstrap";
 import "./Admin.css";
 import axios from "axios";
+import UpdateAdmin from "../UserModify/UpdateAdmin";
 
 const Admin = () => {
   const store = useSelector((state) => state);
@@ -59,29 +60,37 @@ const Admin = () => {
                 </tr>
               </thead>
               <tbody>
-                {admins.map((admin) => {
+                {admins.map((admin, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>{admin._id}</td>
                       <td>{admin.firstname}</td>
                       <td>{admin.lastname}</td>
                       <td>{admin.email}</td>
                       <td>{admin.createdAt}</td>
                       <td>
-                        <Button
+                        <UpdateAdmin
                           bsStyle="primary"
-                          /*                           onClick={() => deleteItem(admin.email)}
-                           */
-                        >
-                          Editar
-                        </Button>
+                          key={i}
+                          data={{
+                            firstname: admin.firstname,
+                            lastname: admin.lastname,
+                            email: admin.lastname,
+                          }}
+                        />
                       </td>
                       <td>
                         <Button
                           bsStyle="danger"
+                          type="button"
+                          simple
+                          bsSize="xs"
                           onClick={() => deleteItem(admin.email)}
                         >
-                          Eliminar
+                          <i
+                            className="fa fa-times"
+                            onClick={() => deleteItem(admin.email)}
+                          />
                         </Button>
                       </td>
                     </tr>
