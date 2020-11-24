@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 
 export default function Category() {
   const token = useSelector((state) => state.admin.token);
-  const [categories, setCategories] = useState(null);
+  const categories = useSelector((state) => state.categories);
   const [newCategoryName, setNewCategoryName] = useState("");
 
   function updateCategory(newCategoryName, categoryName) {
@@ -32,6 +32,29 @@ export default function Category() {
     );
   }
 
+  function deleteCategory(categoryName, token) {
+    axios
+      .delete(
+        "https://electrohack-server.vercel.app/api/admin/categorias",
+
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            name: categoryName,
+          },
+        }
+      )
+      .then((res) => {
+        const newCategoriesList = categories.filter(
+          (category) => category.name !== categoryName
+        );
+        setCategories(newCategoriesList);
+      });
+  }
+
   useEffect(() => {
     axios
       .get("https://electrohack-server.vercel.app/productos/lista/categorias")
@@ -41,22 +64,22 @@ export default function Category() {
   }, []);
   return (
     <>
-      {console.log(categories)}
       <h1>Categorias</h1>
       <Grid>
         {categories &&
           categories.map((category) => {
             return (
               <Row>
-                <Col md={6}>
+                <Col md={4}>
                   <h6>{category.name}</h6>
                   <h6>{category.createdAt}</h6>
                 </Col>
-                <Col md={6}>
+                <Col md={5}>
                   <FormGroup>
                     <InputGroup>
                       <InputGroup.Button>
                         <Button
+                          type="submit"
                           onClick={() =>
                             updateCategory(newCategoryName, category.name)
                           }
@@ -73,6 +96,16 @@ export default function Category() {
                       />
                     </InputGroup>
                   </FormGroup>
+                </Col>
+                <Col md={3}>
+                  <Button
+                    onClick={() => {
+                      deleteCategory(category.name, token);
+                    }}
+                    className="btn btn-danger"
+                  >
+                    Eliminar
+                  </Button>
                 </Col>
               </Row>
             );

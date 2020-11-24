@@ -4,9 +4,11 @@ import storage from "redux-persist/lib/storage"; // defaults to localStorage for
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import admin from "./Reducers/adminReducer";
+import categories from "./Reducers/categoryReducer";
 
 const rootReducer = combineReducers({
   admin,
+  categories,
 });
 
 const persistConfig = {
