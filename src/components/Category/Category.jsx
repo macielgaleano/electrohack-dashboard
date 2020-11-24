@@ -26,7 +26,7 @@ export default function Category() {
   function handleUpdateCategory(newCategoryName, categoryName) {
     axios
       .put(
-        "https://electrohack-server.vercel.app/api/admin/categorias",
+        "http://localhost:8000/api/admin/categorias",
         {
           nameToSearch: categoryName,
           newCategoryName: newCategoryName,
@@ -46,7 +46,7 @@ export default function Category() {
   function handleDeleteCategory(categoryName, token) {
     axios
       .delete(
-        "https://electrohack-server.vercel.app/api/admin/categorias",
+        "http://localhost:8000/api/admin/categorias",
 
         {
           headers: {
@@ -65,7 +65,7 @@ export default function Category() {
 
   useEffect(() => {
     axios
-      .get("https://electrohack-server.vercel.app/productos/lista/categorias")
+      .get("http://localhost:8000/productos/lista/categorias")
       .then((res) => {
         dispatch(showCategories(res.data));
       });
