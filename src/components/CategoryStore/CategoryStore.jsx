@@ -9,14 +9,14 @@ import {
   Button,
   ButtonToolbar,
 } from "react-bootstrap";
+import CategoryAlert from "./Alert";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { addCategory } from "../../Redux/actions/actionsCategory";
 
 const CategoryStore = () => {
-  const categories = useSelector((state) => state.categories);
   const token = useSelector((state) => state.admin.token);
+  const [show, setShow] = useState(false);
   const [categoryName, setCategoryName] = useState("");
   const dispatch = useDispatch();
 
@@ -36,6 +36,7 @@ const CategoryStore = () => {
       )
       .then((res) => {
         dispatch(addCategory(res.data.category));
+        setShow(true);
       });
   }
 
@@ -64,6 +65,7 @@ const CategoryStore = () => {
                   onChange={(e) => setCategoryName(e.target.value)}
                 />
                 <FormControl.Feedback />
+                <CategoryAlert show={show} setShow={setShow} />
                 <ButtonToolbar>
                   <Button
                     bsStyle="primary"
