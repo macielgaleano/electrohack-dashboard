@@ -9,14 +9,12 @@ function categoryReducer(state = [], action) {
     case "ADD_CATEGORY":
       return [...state, action.payload];
     case "UPDATE_CATEGORY":
-      return [
-        ...state,
-        state.map((category) => {
-          return category.name === action.payload.categoryName
-            ? { ...category, name: action.payload.newCategoryName }
-            : category;
-        }),
-      ];
+      return state.map((category) => {
+        return category.name === action.payload.categoryName
+          ? { ...category, name: action.payload.newCategoryName }
+          : category;
+      });
+
     default:
       return state;
   }

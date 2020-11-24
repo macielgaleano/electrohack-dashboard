@@ -10,33 +10,34 @@ import {
   ButtonToolbar,
 } from "react-bootstrap";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { addCategory } from "../../Redux/actions/actionsCategory";
 
 const CategoryStore = () => {
-  const [nameCategory, setNameCategory] = useState("hola");
-  const store = useSelector((state) => state);
-  const history = useHistory();
-  let addCategory = async (e) => {
-    e.preventDefault();
-    await axios
+  const categories = useSelector((state) => state.categories);
+  const token = useSelector((state) => state.admin.token);
+  const [categoryName, setCategoryName] = useState("");
+  const dispatch = useDispatch();
+
+  function handleAddCategory(categoryName, token) {
+    axios
       .post(
-        "https://electrohack-server.vercel.app/api/admin/categorias",
+        "http://localhost:8000/api/admin/categorias",
         {
-          name: nameCategory,
+          name: categoryName,
         },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${store.admin.token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       )
-      .then((admin) => {
-        console.log(admin);
-        history.push("/admin/CategoryList");
+      .then((res) => {
+        dispatch(addCategory(res.data.category));
       });
-  };
+  }
 
   return (
     <div>
@@ -60,13 +61,13 @@ const CategoryStore = () => {
                 <FormControl
                   type="text"
                   placeholder="Enter text"
-                  onChange={(e) => setNameCategory(e.target.value)}
+                  onChange={(e) => setCategoryName(e.target.value)}
                 />
                 <FormControl.Feedback />
                 <ButtonToolbar>
                   <Button
                     bsStyle="primary"
-                    onClick={addCategory}
+                    onClick={() => handleAddCategory(categoryName, token)}
                     style={{
                       background: "#ccc",
                       color: "black",
