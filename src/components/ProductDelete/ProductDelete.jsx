@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Grid, Row, Col, Button } from "react-bootstrap";
+import { OverlayTrigger, Button, Tooltip } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import "./ProductDelete.css";
 
-const ProductDelete = () => {
+const ProductDelete = ({ slug, getProducts }) => {
   const token = useSelector((state) => state.admin.token);
   const [products, setProducts] = useState(null);
 
   function deleteItem(slug, token) {
+    console.log(slug);
     axios
       .delete("https://electrohack-server.vercel.app/api/admin/productos", {
         headers: {
@@ -19,10 +20,10 @@ const ProductDelete = () => {
         data: { slug: slug },
       })
       .then((res) => {
-        const newsProducts = products.filter(
-          (product) => product.slug !== slug
-        );
+        console.log(res);
+        const newsProducts = products.filter((product) => product.slug !== slug);
         setProducts(newsProducts);
+        getProducts(newsProducts);
       });
   }
 
@@ -32,31 +33,21 @@ const ProductDelete = () => {
     });
   }, []);
 
+  const remove = <Tooltip id="remove_tooltip">Remove</Tooltip>;
+
   return (
     <>
-      <Grid>
-        <h1>Eliminar productos</h1>
-        {products &&
-          products.map((product) => {
-            return (
-              <div className="item-box">
-                <Row key={product.slug}>
-                  <Col md={6}>{product.name}</Col>
-                  <Col md={3}>{product.brand}</Col>
-                  <Col md={2}>$ {product.price}</Col>
-                  <Col md={1}>
-                    <Button
-                      className="btn btn-sm btn-danger"
-                      onClick={() => deleteItem(product.slug, token)}
-                    >
-                      Eliminar
-                    </Button>
-                  </Col>
-                </Row>
-              </div>
-            );
-          })}
-      </Grid>
+      <OverlayTrigger placement="top" overlay={remove}>
+        <Button
+          bsStyle="danger"
+          simple
+          type="button"
+          bsSize="xs"
+          onClick={() => deleteItem(slug, token)}
+        >
+          <i className="fa fa-times" onClick={() => deleteItem(slug, token)} />
+        </Button>
+      </OverlayTrigger>
     </>
   );
 };

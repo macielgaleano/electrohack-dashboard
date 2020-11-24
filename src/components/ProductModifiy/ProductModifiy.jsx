@@ -1,156 +1,195 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Grid, Row, Col, Table, FormGroup, FormControl, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import {
+  Tooltip,
+  OverlayTrigger,
+  Button,
+  Modal,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  ButtonToolbar,
+  SplitButton,
+  MenuItem,
+} from "react-bootstrap";
 
-export default function ProductModifiy() {
+export default function ProductModifiy({ show, setShow, data }) {
+  const [nameProduct, setNameProduct] = useState("");
+  const [descriptionProduct, setDescriptionProduct] = useState("");
+  const [priceProduct, setPriceProduct] = useState(0);
+  const [brandProduct, setBrandProduct] = useState("");
+  const [pictureProduct, setPictureProduct] = useState("");
+  const [stockProduct, setStockProduct] = useState(0);
+  const [categoryProduct, setCategoryProduct] = useState("");
+  const [outStadingProduct, setOutstadingProduct] = useState(false);
+  const [outStadingNameProduct, SetOutStadingNameProduct] = useState("No");
+  const [categoriaName, setCategoriaName] = useState("*Ingrese una categoria");
+  const [categorias, setCategorias] = useState([]);
   const token = useSelector((state) => state.admin.token);
-  const [products, setProducts] = useState(null);
-  const [categories, setCategories] = useState(null);
-
-  useEffect(() => {
-    axios.get("https://electrohack-server.vercel.app/productos").then((res) => {
-      setProducts(res.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    axios
+  const edit = <Tooltip id="edit_tooltip">Edit Task</Tooltip>;
+  let addCategory = async () => {
+    // e.preventDefault();
+    await axios
       .get("https://electrohack-server.vercel.app/productos/lista/categorias")
-      .then((res) => {
-        setCategories(res.data);
-      });
-  }, []);
-
+      .then((items) => setCategorias(items.data));
+  };
+  addCategory();
   function handleSubmit(data) {
     axios.post("https://electrohack-server.vercel.app/api/admin/productos");
   }
+  let handleClose = () => {
+    setShow(false);
+  };
+
+  let handleShow = () => {
+    setShow(true);
+  };
+
+  let addCategoryId = (e) => {
+    e.preventDefault();
+    setCategoryProduct(e.target.id);
+
+    setCategoriaName(e.target.name);
+  };
+
+  let addOutStading = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    SetOutStadingNameProduct("Si");
+    setOutstadingProduct(true);
+  };
 
   return (
     <>
-      <Grid fluid={true}>
-        <h1>Editar productos</h1>
-        <br></br>
-        <Row>
-          <Col md={11} sm={12}>
-            <Table bordered={true}>
-              <thead>
-                <tr style={{ color: "red" }}>
-                  <th>Nombre</th>
-                  <th>Categoria</th>
-                  <th>Actualizado</th>
-                  <th>Descripcion</th>
-                  <th>Destacado</th>
-                  <th>imagen</th>
-                  <th>Stock</th>
-                  <th>Precio</th>
-                  <th>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products &&
-                  products.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="name"
-                            id="name"
-                            value={item.name}
-                          />
-                        </td>
-                        <td>
-                          <FormGroup controlId="formControlsSelect">
-                            <FormControl componentClass="select" name="category">
-                              {categories &&
-                                categories.map((category) => {
-                                  return (
-                                    <option value={category._id}>{category.name}</option>
-                                  );
-                                })}
-                            </FormControl>
-                          </FormGroup>
-                        </td>
-                        <td>{item.updatedAt}</td>
-                        <td>
-                          <textarea
-                            type="text"
-                            className="form-control"
-                            name="description"
-                            id="description"
-                            value={item.description}
-                          />
-                        </td>
-                        <td>
-                          <FormGroup controlId="formControlsSelect">
-                            <FormControl
-                              componentClass="select"
-                              placeholder="select"
-                              name="outstanding"
-                            >
-                              <option value={true}>Si</option>{" "}
-                              <option value={false}>No</option>
-                            </FormControl>
-                          </FormGroup>
-                        </td>
-                        <td>
-                          <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                              <span class="input-group-text" id="inputGroupFileAddon01">
-                                Upload
-                              </span>
-                            </div>
-                            <div class="custom-file">
-                              <input
-                                type="file"
-                                class="custom-file-input"
-                                id="inputGroupFile01"
-                                aria-describedby="inputGroupFileAddon01"
-                              />
-                              <label class="custom-file-label" for="inputGroupFile01">
-                                Choose file
-                              </label>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="stock"
-                            id="stock"
-                            value={item.stock}
-                          />
-                        </td>
-                        <td>
-                          <input
-                            type="text"
-                            className="form-control"
-                            name="price"
-                            id="price"
-                            value={item.price}
-                          />
-                        </td>
-                        <td>
-                          <Button
-                            onClick={handleSubmit}
-                            className="btn btn-small btn-primary"
+      <div>
+        <OverlayTrigger placement="top" overlay={edit}>
+          <Button bsStyle="info" simple type="button" bsSize="xs" onClick={handleShow}>
+            <i className="fa fa-edit" onClick={handleShow} />
+          </Button>
+        </OverlayTrigger>
+
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <FormGroup
+                controlId="formBasicText"
+                className="mt-5 mb-3"
+                style={{
+                  paddingBottom: "400px",
+                }}
+              >
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese el nombre del producto
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter text"
+                  onChange={(e) => setNameProduct(e.target.value)}
+                />
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese la descripcion del producto
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter text"
+                  onChange={(e) => setDescriptionProduct(e.target.value)}
+                />
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese el precio del producto
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter text"
+                  onChange={(e) => setPriceProduct(e.target.value)}
+                />
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese el stock del producto
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter text"
+                  onChange={(e) => setStockProduct(e.target.value)}
+                />
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese La marca del producto
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter text"
+                  onChange={(e) => setBrandProduct(e.target.value)}
+                />
+
+                <FormControl.Feedback />
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese la categoria del producto
+                </ControlLabel>
+                <ButtonToolbar>
+                  <SplitButton title={categoriaName} dropup id="split-button-dropup">
+                    {categorias &&
+                      categorias.map((item, index) => {
+                        return (
+                          <MenuItem
+                            eventKey={index}
+                            key={index}
+                            id={item._id}
+                            name={item.name}
+                            onClick={addCategoryId}
                           >
-                            Editar
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </Table>
-            ;
-          </Col>
-        </Row>
-      </Grid>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                  </SplitButton>
+                </ButtonToolbar>
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  ¿Producto destacado?
+                </ControlLabel>
+                <ButtonToolbar>
+                  <SplitButton
+                    title={outStadingNameProduct}
+                    dropup
+                    id="split-button-dropup"
+                  >
+                    <MenuItem
+                      eventKey={1}
+                      key={1}
+                      response={"Si"}
+                      onClick={addOutStading}
+                    >
+                      Si
+                    </MenuItem>
+                    <MenuItem
+                      eventKey={2}
+                      key={2}
+                      response={"No"}
+                      onClick={addOutStading}
+                    >
+                      No
+                    </MenuItem>
+                  </SplitButton>
+                </ButtonToolbar>
+
+                <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
+                  Ingrese La imagen del producto
+                </ControlLabel>
+                <FormControl
+                  type="text"
+                  placeholder="Enter text"
+                  onChange={(e) => setPictureProduct(e.target.value)}
+                />
+              </FormGroup>
+            </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </>
   );
 }
