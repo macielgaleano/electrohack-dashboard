@@ -10,29 +10,40 @@ import {
   FormControl,
 } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import {
+  showCategories,
+  deleteCategory,
+  updateCategory,
+} from "../../Redux/actions/actionsCategory";
+import { useDispatch } from "react-redux";
 
 export default function Category() {
   const token = useSelector((state) => state.admin.token);
   const categories = useSelector((state) => state.categories);
   const [newCategoryName, setNewCategoryName] = useState("");
+  const dispatch = useDispatch();
 
-  function updateCategory(newCategoryName, categoryName) {
-    axios.put(
-      "https://electrohack-server.vercel.app/api/admin/categorias",
-      {
-        nameToSearch: categoryName,
-        newCategoryName: newCategoryName,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+  function handleUpdateCategory(newCategoryName, categoryName) {
+    axios
+      .put(
+        "https://electrohack-server.vercel.app/api/admin/categorias",
+        {
+          nameToSearch: categoryName,
+          newCategoryName: newCategoryName,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(updateCategory(newCategoryName, categoryName));
+      });
   }
 
-  function deleteCategory(categoryName, token) {
+  function handleDeleteCategory(categoryName, token) {
     axios
       .delete(
         "https://electrohack-server.vercel.app/api/admin/categorias",
@@ -48,10 +59,7 @@ export default function Category() {
         }
       )
       .then((res) => {
-        const newCategoriesList = categories.filter(
-          (category) => category.name !== categoryName
-        );
-        setCategories(newCategoriesList);
+        dispatch(deleteCategory(categoryName));
       });
   }
 
@@ -59,7 +67,7 @@ export default function Category() {
     axios
       .get("https://electrohack-server.vercel.app/productos/lista/categorias")
       .then((res) => {
-        setCategories(res.data);
+        dispatch(showCategories(res.data));
       });
   }, []);
   return (
@@ -81,7 +89,7 @@ export default function Category() {
                         <Button
                           type="submit"
                           onClick={() =>
-                            updateCategory(newCategoryName, category.name)
+                            handleUpdateCategory(newCategoryName, category.name)
                           }
                         >
                           Cambiar Nombre
@@ -100,7 +108,7 @@ export default function Category() {
                 <Col md={3}>
                   <Button
                     onClick={() => {
-                      deleteCategory(category.name, token);
+                      handleDeleteCategory(category.name, token);
                     }}
                     className="btn btn-danger"
                   >

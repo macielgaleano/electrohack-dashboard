@@ -7,7 +7,7 @@ function deleteCategory(categoryName) {
 
 function showCategories(categories) {
   return {
-    type: "DELETE_CATEGORY",
+    type: "SHOW_CATEGORIES",
     payload: categories,
   };
 }
@@ -19,4 +19,11 @@ function addCategory(category) {
   };
 }
 
-export default { showCategories, deleteCategory, addCategory };
+function updateCategory(newCategoryName, categoryName) {
+  return {
+    type: "UPDATE_CATEGORY",
+    payload: { newCategoryName, categoryName },
+  };
+}
+
+export { showCategories, deleteCategory, addCategory, updateCategory };

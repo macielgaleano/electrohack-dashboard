@@ -12,7 +12,7 @@ function adminReducer(state = {}, action) {
     case "LOGOUT":
       return {};
     default:
-      return {};
+      return state;
   }
 }
 export default adminReducer;
