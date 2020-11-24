@@ -61,8 +61,6 @@ const ProductList = () => {
                         >
                           <ProductModify
                             key={i}
-                            show={show}
-                            setShow={setShow}
                             data={{
                               name: item.name,
                               category: item.category,

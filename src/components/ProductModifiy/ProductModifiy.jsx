@@ -15,7 +15,8 @@ import {
   MenuItem,
 } from "react-bootstrap";
 
-export default function ProductModifiy({ show, setShow, data }) {
+export default function ProductModifiy({ data }) {
+  const [show, setShow] = useState(false);
   const [nameProduct, setNameProduct] = useState(data.name);
   const [descriptionProduct, setDescriptionProduct] = useState(data.description);
   const [priceProduct, setPriceProduct] = useState(data.price);
@@ -29,42 +30,47 @@ export default function ProductModifiy({ show, setShow, data }) {
   const [categorias, setCategorias] = useState([]);
   const token = useSelector((state) => state.admin.token);
   const edit = <Tooltip id="edit_tooltip">Edit Task</Tooltip>;
-  let addCategory = async () => {
-    await axios
-      .get("https://electrohack-server.vercel.app/productos/lista/categorias")
-      .then((items) => setCategorias(items.data));
-  };
-  addCategory();
-  function handleSubmit(e) {
+  useEffect(() => {
+    let addCategory = async () => {
+      await axios
+        .get("https://electrohack-server.vercel.app/productos/lista/categorias")
+        .then((items) => setCategorias(items.data));
+    };
+    addCategory();
+  }, []);
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    axios.post(
-      "https://electrohack-server.vercel.app/api/admin/productos",
-      {
-        name: nameProduct,
-        description: descriptionProduct,
-        price: priceProduct,
-        brand: brandProduct,
-        pictures: [pictureProduct],
-        stock: stockProduct,
-        category: categoryProduct,
-        outstading: outStadingProduct,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    await axios
+      .put(
+        "https://electrohack-server.vercel.app/api/admin/productos",
+        {
+          name: nameProduct,
+          description: descriptionProduct,
+          price: priceProduct,
+          brand: brandProduct,
+          pictures: [pictureProduct],
+          stock: stockProduct,
+          category: categoryProduct,
+          outstading: outStadingProduct,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      });
     setShow(false);
   }
-  let handleClose = (e) => {
-    e.preventDefault();
+  let handleClose = () => {
     setShow(false);
   };
 
-  let handleShow = (e) => {
-    e.preventDefault();
+  let handleShow = () => {
     setShow(true);
   };
 
@@ -85,30 +91,18 @@ export default function ProductModifiy({ show, setShow, data }) {
     <>
       <div>
         <OverlayTrigger placement="top" overlay={edit}>
-          <Button
-            bsStyle="info"
-            simple
-            type="button"
-            bsSize="xs"
-            onClick={(e) => handleShow(e)}
-          >
-            <i className="fa fa-edit" onClick={(e) => handleShow(e)} />
+          <Button bsStyle="info" simple type="button" bsSize="xs" onClick={handleShow}>
+            <i className="fa fa-edit" onClick={handleShow} />
           </Button>
         </OverlayTrigger>
 
-        <Modal show={show} onHide={(e) => handleClose(e)}>
+        <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Editar producto</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
-              <FormGroup
-                controlId="formBasicText"
-                className="mt-5 mb-3"
-                style={{
-                  paddingBottom: "400px",
-                }}
-              >
+              <FormGroup controlId="formBasicText" className="mt-5 mb-3">
                 <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
                   Ingrese el nombre del producto
                 </ControlLabel>
@@ -218,7 +212,7 @@ export default function ProductModifiy({ show, setShow, data }) {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => handleClose(e)}>Close</Button>
+            <Button onClick={handleClose}>Close</Button>
             <Button onClick={handleSubmit}>Modificar producto</Button>
           </Modal.Footer>
         </Modal>
