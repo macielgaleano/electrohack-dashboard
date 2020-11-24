@@ -25,7 +25,7 @@ export default function UpdateAdmin({ data }) {
     e.preventDefault();
     await axios
       .put(
-        "https://electrohack-server.vercel.app/admin/admin",
+        "https://electrohack-server.vercel.app/api/admin",
         {
           firstname: adminName,
           lastname: adminLastname,
