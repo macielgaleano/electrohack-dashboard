@@ -16,13 +16,13 @@ import {
 } from "react-bootstrap";
 
 export default function ProductModifiy({ show, setShow, data }) {
-  const [nameProduct, setNameProduct] = useState("");
-  const [descriptionProduct, setDescriptionProduct] = useState("");
-  const [priceProduct, setPriceProduct] = useState(0);
-  const [brandProduct, setBrandProduct] = useState("");
-  const [pictureProduct, setPictureProduct] = useState("");
-  const [stockProduct, setStockProduct] = useState(0);
-  const [categoryProduct, setCategoryProduct] = useState("");
+  const [nameProduct, setNameProduct] = useState(data.name);
+  const [descriptionProduct, setDescriptionProduct] = useState(data.description);
+  const [priceProduct, setPriceProduct] = useState(data.price);
+  const [brandProduct, setBrandProduct] = useState(data.brand);
+  const [pictureProduct, setPictureProduct] = useState(data.picture);
+  const [stockProduct, setStockProduct] = useState(data.stock);
+  const [categoryProduct, setCategoryProduct] = useState(data.category);
   const [outStadingProduct, setOutstadingProduct] = useState(false);
   const [outStadingNameProduct, SetOutStadingNameProduct] = useState("No");
   const [categoriaName, setCategoriaName] = useState("*Ingrese una categoria");
@@ -30,27 +30,47 @@ export default function ProductModifiy({ show, setShow, data }) {
   const token = useSelector((state) => state.admin.token);
   const edit = <Tooltip id="edit_tooltip">Edit Task</Tooltip>;
   let addCategory = async () => {
-    // e.preventDefault();
     await axios
       .get("https://electrohack-server.vercel.app/productos/lista/categorias")
       .then((items) => setCategorias(items.data));
   };
   addCategory();
-  function handleSubmit(data) {
-    axios.post("https://electrohack-server.vercel.app/api/admin/productos");
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios.post(
+      "https://electrohack-server.vercel.app/api/admin/productos",
+      {
+        name: nameProduct,
+        description: descriptionProduct,
+        price: priceProduct,
+        brand: brandProduct,
+        pictures: [pictureProduct],
+        stock: stockProduct,
+        category: categoryProduct,
+        outstading: outStadingProduct,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setShow(false);
   }
-  let handleClose = () => {
+  let handleClose = (e) => {
+    e.preventDefault();
     setShow(false);
   };
 
-  let handleShow = () => {
+  let handleShow = (e) => {
+    e.preventDefault();
     setShow(true);
   };
 
   let addCategoryId = (e) => {
     e.preventDefault();
     setCategoryProduct(e.target.id);
-
     setCategoriaName(e.target.name);
   };
 
@@ -65,14 +85,20 @@ export default function ProductModifiy({ show, setShow, data }) {
     <>
       <div>
         <OverlayTrigger placement="top" overlay={edit}>
-          <Button bsStyle="info" simple type="button" bsSize="xs" onClick={handleShow}>
-            <i className="fa fa-edit" onClick={handleShow} />
+          <Button
+            bsStyle="info"
+            simple
+            type="button"
+            bsSize="xs"
+            onClick={(e) => handleShow(e)}
+          >
+            <i className="fa fa-edit" onClick={(e) => handleShow(e)} />
           </Button>
         </OverlayTrigger>
 
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={(e) => handleClose(e)}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Editar producto</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -89,6 +115,7 @@ export default function ProductModifiy({ show, setShow, data }) {
                 <FormControl
                   type="text"
                   placeholder="Enter text"
+                  value={nameProduct}
                   onChange={(e) => setNameProduct(e.target.value)}
                 />
                 <ControlLabel style={{ marginTop: "30px", marginBottom: "20px" }}>
@@ -96,6 +123,7 @@ export default function ProductModifiy({ show, setShow, data }) {
                 </ControlLabel>
                 <FormControl
                   type="text"
+                  value={descriptionProduct}
                   placeholder="Enter text"
                   onChange={(e) => setDescriptionProduct(e.target.value)}
                 />
@@ -104,6 +132,7 @@ export default function ProductModifiy({ show, setShow, data }) {
                 </ControlLabel>
                 <FormControl
                   type="text"
+                  value={priceProduct}
                   placeholder="Enter text"
                   onChange={(e) => setPriceProduct(e.target.value)}
                 />
@@ -112,6 +141,7 @@ export default function ProductModifiy({ show, setShow, data }) {
                 </ControlLabel>
                 <FormControl
                   type="text"
+                  value={stockProduct}
                   placeholder="Enter text"
                   onChange={(e) => setStockProduct(e.target.value)}
                 />
@@ -120,6 +150,7 @@ export default function ProductModifiy({ show, setShow, data }) {
                 </ControlLabel>
                 <FormControl
                   type="text"
+                  value={brandProduct}
                   placeholder="Enter text"
                   onChange={(e) => setBrandProduct(e.target.value)}
                 />
@@ -179,6 +210,7 @@ export default function ProductModifiy({ show, setShow, data }) {
                 </ControlLabel>
                 <FormControl
                   type="text"
+                  value={pictureProduct}
                   placeholder="Enter text"
                   onChange={(e) => setPictureProduct(e.target.value)}
                 />
@@ -186,7 +218,8 @@ export default function ProductModifiy({ show, setShow, data }) {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={handleClose}>Close</Button>
+            <Button onClick={(e) => handleClose(e)}>Close</Button>
+            <Button onClick={handleSubmit}>Modificar producto</Button>
           </Modal.Footer>
         </Modal>
       </div>

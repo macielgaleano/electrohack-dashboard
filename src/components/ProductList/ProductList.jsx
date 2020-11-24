@@ -13,7 +13,6 @@ const ProductList = () => {
     });
   }, []);
 
-  let number;
   const getProducts = (newsProducts) => {
     setProducts(newsProducts);
   };
@@ -33,6 +32,7 @@ const ProductList = () => {
                   <th>Creado</th>
                   <th>Descripcion</th>
                   <th>Destacado</th>
+                  <th>Marca</th>
                   <th>Stock</th>
                   <th>Precio</th>
                   <th>Accion</th>
@@ -41,12 +41,12 @@ const ProductList = () => {
               <tbody>
                 {products !== [] &&
                   products.map((item, i) => {
-                    number = "checkbox" + i;
                     return (
                       <tr key={i}>
                         <td>{item._id}</td>
                         <td>{item.name}</td>
                         <td>{item.category}</td>
+                        <td>{item.brand}</td>
                         <td>{item.createdAt}</td>
                         <td>{item.description}</td>
                         <td>{item.outstading}</td>
@@ -60,16 +60,19 @@ const ProductList = () => {
                           }}
                         >
                           <ProductModify
+                            key={i}
                             show={show}
                             setShow={setShow}
-                            data={
-                              (item.name,
-                              item.category,
-                              item.description,
-                              item.outstading,
-                              item.stock,
-                              item.price)
-                            }
+                            data={{
+                              name: item.name,
+                              category: item.category,
+                              description: item.description,
+                              outstading: item.outstading,
+                              stock: item.stock,
+                              price: item.price,
+                              brand: item.brand,
+                              picture: item.pictures[0],
+                            }}
                           />
 
                           <ProductDelete
