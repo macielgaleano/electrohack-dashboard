@@ -1,13 +1,16 @@
 function categoryReducer(state = [], action) {
   switch (action.type) {
     case "SHOW_CATEGORIES":
-      console.log(state);
-      console.log(action.payload);
       return [...action.payload];
     case "DELETE_CATEGORY":
       return state.filter((category) => category.name !== action.payload);
     case "ADD_CATEGORY":
-      return [...state, action.payload];
+      if (action.payload) {
+        return [...state, action.payload];
+      } else {
+        return state;
+      }
+
     case "UPDATE_CATEGORY":
       return state.map((category) => {
         return category.name === action.payload.categoryName
