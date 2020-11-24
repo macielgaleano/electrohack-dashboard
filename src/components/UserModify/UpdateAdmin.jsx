@@ -19,7 +19,6 @@ export default function UpdateAdmin({ data }) {
   const [adminEmail, setAdminEmail] = useState(data.email);
   const token = useSelector((state) => state.admin.token);
   const edit = <Tooltip id="edit_tooltip">Edit Task</Tooltip>;
-  console.log("data", data);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -30,6 +29,7 @@ export default function UpdateAdmin({ data }) {
           firstname: adminName,
           lastname: adminLastname,
           email: adminEmail,
+          id: data.id,
         },
         {
           headers: {

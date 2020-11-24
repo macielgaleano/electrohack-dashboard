@@ -75,7 +75,8 @@ const Admin = () => {
                           data={{
                             firstname: admin.firstname,
                             lastname: admin.lastname,
-                            email: admin.lastname,
+                            email: admin.email,
+                            id: admin._id,
                           }}
                         />
                       </td>
