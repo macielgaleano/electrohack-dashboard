@@ -17,6 +17,7 @@ import {
 } from "../../Redux/actions/actionsCategory";
 import { useDispatch } from "react-redux";
 import CategoryAlert from "../CategoryStore/Alert";
+import Alert from "@material-ui/lab/Alert";
 
 export default function Category() {
   const token = useSelector((state) => state.admin.token);
