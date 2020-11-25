@@ -17,7 +17,6 @@ import {
 } from "../../Redux/actions/actionsCategory";
 import { useDispatch } from "react-redux";
 import CategoryAlert from "../CategoryStore/Alert";
-import Alert from "@material-ui/lab/Alert";
 
 export default function Category() {
   const token = useSelector((state) => state.admin.token);
@@ -115,19 +114,25 @@ export default function Category() {
                 </Col>
                 <Col md={3}>
                   <Button
+                    bsStyle="danger"
+                    type="button"
+                    simple
                     onClick={() => {
                       handleDeleteCategory(category.name, token);
                     }}
-                    className="btn btn-danger"
                   >
-                    Eliminar
+                    <i className="fa fa-times" />
                   </Button>
                 </Col>
               </Row>
             );
           })}
+        <Row>
+          <Col>
+            <CategoryAlert show={show} setShow={setShow} text={text} />
+          </Col>
+        </Row>
       </Grid>
-      <CategoryAlert show={show} setShow={setShow} text={text} />
     </>
   );
 }
