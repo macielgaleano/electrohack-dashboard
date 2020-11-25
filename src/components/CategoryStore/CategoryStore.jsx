@@ -18,6 +18,7 @@ const CategoryStore = () => {
   const token = useSelector((state) => state.admin.token);
   const [show, setShow] = useState(false);
   const [categoryName, setCategoryName] = useState("");
+  const [text, setText] = useState("");
   const dispatch = useDispatch();
 
   function handleAddCategory(categoryName, token) {
@@ -36,6 +37,7 @@ const CategoryStore = () => {
       )
       .then((res) => {
         dispatch(addCategory(res.data.category));
+        setText(res.data.message);
         setShow(true);
       });
   }
@@ -65,7 +67,7 @@ const CategoryStore = () => {
                   onChange={(e) => setCategoryName(e.target.value)}
                 />
                 <FormControl.Feedback />
-                <CategoryAlert show={show} setShow={setShow} />
+                <CategoryAlert show={show} setShow={setShow} text={text} />
                 <ButtonToolbar>
                   <Button
                     bsStyle="primary"

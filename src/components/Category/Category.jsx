@@ -16,12 +16,15 @@ import {
   updateCategory,
 } from "../../Redux/actions/actionsCategory";
 import { useDispatch } from "react-redux";
+import CategoryAlert from "../CategoryStore/Alert";
 
 export default function Category() {
   const token = useSelector((state) => state.admin.token);
   const categories = useSelector((state) => state.categories);
   const [newCategoryName, setNewCategoryName] = useState("");
   const dispatch = useDispatch();
+  const [text, setText] = useState("");
+  const [show, setShow] = useState(false);
 
   function handleUpdateCategory(newCategoryName, categoryName) {
     axios
@@ -40,6 +43,8 @@ export default function Category() {
       )
       .then((res) => {
         dispatch(updateCategory(newCategoryName, categoryName));
+        setText(res.data.message);
+        setShow(true);
       });
   }
 
@@ -60,6 +65,8 @@ export default function Category() {
       )
       .then((res) => {
         dispatch(deleteCategory(categoryName));
+        setText(res.data.message);
+        setShow(true);
       });
   }
 
@@ -119,6 +126,7 @@ export default function Category() {
             );
           })}
       </Grid>
+      <CategoryAlert show={show} setShow={setShow} text={text} />
     </>
   );
 }

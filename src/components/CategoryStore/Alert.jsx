@@ -1,11 +1,11 @@
 import React from "react";
 import { Alert, Button } from "react-bootstrap";
 
-export default function CategoryAlert({ show, setShow }) {
+export default function CategoryAlert({ show, setShow, text }) {
   if (show) {
     return (
       <Alert style={{ marginTop: "10px" }} bsStyle="warning">
-        La categoría fue creada exitosamente
+        {text}
         <Button onClick={() => setShow(false)}>Close</Button>
       </Alert>
     );
