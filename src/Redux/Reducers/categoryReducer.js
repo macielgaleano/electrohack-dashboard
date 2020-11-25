@@ -15,7 +15,6 @@ function categoryReducer(state = [], action) {
       const categorySearched = state.find((category) => {
         return category.name === action.payload.newCategoryName;
       });
-
       console.log(categorySearched);
       if (!categorySearched) {
         return state.map((category) => {
