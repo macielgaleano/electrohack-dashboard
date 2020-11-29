@@ -43,7 +43,7 @@ export default function ProductModifiy({ data }) {
     e.preventDefault();
     await axios
       .put(
-        "https://electrohack-server.vercel.app/api/admin/productos",
+        "http://localhost:8000/api/admin/productos",
         {
           name: nameProduct,
           description: descriptionProduct,
